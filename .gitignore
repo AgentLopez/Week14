@@ -1,3 +1,6 @@
 /print/node_modules
 /print/src/vendors
 /print/src/images
+/print/src/fonts
+/print/markup/elements
+/server/node_modules
