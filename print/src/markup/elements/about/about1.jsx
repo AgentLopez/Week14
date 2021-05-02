@@ -21,11 +21,11 @@ class About1 extends Component{
 					</div>
 					<div className="col-md-6">
 						<div className="heading-bx m-b20">
-							<h6 className="title-ext m-b0">Covid Vaccine Card</h6>
+							<h6 className="title-ext m-b0">$5 Covid Vaccine Card</h6>
 							<h2 className="title-head m-b0">Unoffical Badge</h2>
 							<div className="ttr-separator sepimg"></div>
-							<h5 className="title-text fw4 m-t5 m-b0">You've got the vaccine and have taken a picture of the vaccine card with your phone, but you arrive to a location and fumble with your phone to fine the picture.</h5>
-							<p className="head-px2">Enter Vaccine Card, a convient, durable print of your vaccine card on one side and the word vaccinated on the other, letting others know at a glance you're ready for what's next.</p>
+							<h5 className="title-text fw4 m-t5 m-b0">You've got the vaccine and have taken a picture of the vaccine card with your phone, but you arrive to a location and fumble with your phone to find the picture.</h5>
+							<p className="head-px2">Enter Vaccine Card, a convient, durable print of your vaccine card on one side and the word vaccinated on the other, letting others know at a glance you're ready for what's next. Only $5</p>
 						</div>
 						<Link to="get-started" className="btn">Get Started</Link>
 					</div>

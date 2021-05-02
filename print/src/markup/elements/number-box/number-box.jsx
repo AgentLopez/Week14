@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Link } from 'react-router-dom';
+
 
 class NumberBox extends Component{
 	render(){
@@ -25,7 +25,7 @@ class NumberBox extends Component{
 					<div className="col-md-4">
 						<div className="number-box" data-name="03">
 							<div className="number-icon">03</div>
-							<h5 className="title">Pay</h5>
+							<h5 className="title">Pay $5</h5>
 							<p>Once payment is recieved, we'll print and send out via USPS First Class.</p>
 							
 						</div>

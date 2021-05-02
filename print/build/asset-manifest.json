@@ -1,0 +1,43 @@
+{
+  "files": {
+    "main.css": "/static/css/main.e5492442.chunk.css",
+    "main.js": "/static/js/main.df2e45fc.chunk.js",
+    "main.js.map": "/static/js/main.df2e45fc.chunk.js.map",
+    "runtime-main.js": "/static/js/runtime-main.de2c67da.js",
+    "runtime-main.js.map": "/static/js/runtime-main.de2c67da.js.map",
+    "static/css/2.999b731a.chunk.css": "/static/css/2.999b731a.chunk.css",
+    "static/js/2.8e5893d1.chunk.js": "/static/js/2.8e5893d1.chunk.js",
+    "static/js/2.8e5893d1.chunk.js.map": "/static/js/2.8e5893d1.chunk.js.map",
+    "static/js/3.5f1ac22c.chunk.js": "/static/js/3.5f1ac22c.chunk.js",
+    "static/js/3.5f1ac22c.chunk.js.map": "/static/js/3.5f1ac22c.chunk.js.map",
+    "index.html": "/index.html",
+    "static/css/2.999b731a.chunk.css.map": "/static/css/2.999b731a.chunk.css.map",
+    "static/css/main.e5492442.chunk.css.map": "/static/css/main.e5492442.chunk.css.map",
+    "static/js/2.8e5893d1.chunk.js.LICENSE.txt": "/static/js/2.8e5893d1.chunk.js.LICENSE.txt",
+    "static/media/style.css": "/static/media/united-states-of-america.59c09ec3.svg",
+    "static/media/flaticon.css": "/static/media/Flaticon.f57fe974.ttf",
+    "static/media/flaticon1.css": "/static/media/Flaticon1.e6d1a79f.svg",
+    "static/media/banner1.d1423a04.jpg": "/static/media/banner1.d1423a04.jpg",
+    "static/media/font-awesome.min.css": "/static/media/fontawesome-webfont.f691f37e.woff",
+    "static/media/image_7.ed62df7f.jpg": "/static/media/image_7.ed62df7f.jpg",
+    "static/media/line-awesome.css": "/static/media/la-solid-900.99fd3f7f.svg",
+    "static/media/logo.c10b74d4.png": "/static/media/logo.c10b74d4.png",
+    "static/media/pic1.b8e31612.jpg": "/static/media/pic1.b8e31612.jpg",
+    "static/media/pic1.b9adc3a7.jpg": "/static/media/pic1.b9adc3a7.jpg",
+    "static/media/pic11.87d66103.jpg": "/static/media/pic11.87d66103.jpg",
+    "static/media/pic2.6edea563.jpg": "/static/media/pic2.6edea563.jpg",
+    "static/media/pic2.dfcb560a.jpg": "/static/media/pic2.dfcb560a.jpg",
+    "static/media/pic3.2b5c25d9.jpg": "/static/media/pic3.2b5c25d9.jpg",
+    "static/media/pic4.875bf575.jpg": "/static/media/pic4.875bf575.jpg",
+    "static/media/pic5.a000998d.jpg": "/static/media/pic5.a000998d.jpg",
+    "static/media/slick-theme.css": "/static/media/slick.c94f7671.ttf",
+    "static/media/themify-icons.css": "/static/media/themify.f0fc8c79.svg"
+  },
+  "entrypoints": [
+    "static/js/runtime-main.de2c67da.js",
+    "static/css/2.999b731a.chunk.css",
+    "static/js/2.8e5893d1.chunk.js",
+    "static/css/main.e5492442.chunk.css",
+    "static/js/main.df2e45fc.chunk.js"
+  ]
+}

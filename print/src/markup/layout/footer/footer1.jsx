@@ -23,7 +23,7 @@ class Footer1 extends Component{
 									<ul className="link-inline">
 										<li><Link to="/">Home</Link></li>
 									
-										<li><Link to="faq-1">FAQs</Link></li>
+										<li><Link to="faq">FAQs</Link></li>
 										<li><Link to="get-started">Get Started</Link></li>
 									</ul>
 								</div>

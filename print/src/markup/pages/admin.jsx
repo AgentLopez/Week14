@@ -2,36 +2,32 @@ import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 
 // Layout
-import Header1 from '../layout/header/header1';
 import Footer1 from '../layout/footer/footer1';
 
 // Images
-import Banner4 from "../../images/banner/banner4.jpg"
+import Banner1 from "../../images/banner/banner1.jpg"
 import ProductPic1 from "../../images/product/pic1.jpg"
 import ProductPic2 from "../../images/product/pic2.jpg"
 import ProductPic3 from "../../images/product/pic3.jpg"
 import ProductPic4 from "../../images/product/pic4.jpg"
 import ProductPic5 from "../../images/product/pic5.jpg"
 
-class ShopCart extends Component {
+class Admin extends Component {
 	
 	render(){
 		return (
 			<>
-				<Header1 />
+			
 				
 				{/* <!-- Content --> */}
 				<div className="page-content bg-white">
 					
-					<div className="page-banner ovbl-dark parallax" style={{backgroundImage: "url("+Banner4+")"}}>
+					<div className="page-banner ovbl-middle parallax" style={{backgroundImage: "url("+Banner1+")"}}>
 						<div className="container">
 							<div className="page-banner-entry">
-								<h1 className="text-white">Shop Cart</h1>
+								<h1 className="text-white">Admin/Fullfillment Dashboard</h1>
 								<div className="breadcrumb-row">
-									<ul className="list-inline">
-										<li><Link to="/"><i className="fa fa-home"></i> Home</Link></li>
-										<li>Shop Cart</li>
-									</ul>
+									
 								</div>
 							 </div>
 						</div>
@@ -263,4 +259,4 @@ class ShopCart extends Component {
 	}
 }
 
-export default ShopCart;
+export default Admin;

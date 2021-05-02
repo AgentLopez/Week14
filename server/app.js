@@ -4,21 +4,13 @@ const app = express()
 const jwt = require('jsonwebtoken')
 const formidable = require('formidable')
 const { v4: uuidv4 } = require('uuid')
+const models = require('./models')
+const bcrypt = require('bcryptjs')
+
+
 require('dotenv').config()
-const { createPool } = require('mysql')
 
-var mysql = require('mysql');
-const { response } = require('express')
-var connection = mysql.createPool({
-  // connecionLimit: 10,
-  host: process.env.SQL_HOST,
-  user: process.env.SQL_USER,
-  password: process.env.SQL_KEY,
-  database: process.env.SQL_DB
-})
-
-
-const stripe = require('stripe')('sk_test_51IlcevKnypfgt1Fw80MHmwFdiiQMx0x98xS2vLRiLTzDB7hW7U500MYNlddbUr2VCw6ulj2ARaRXpwGtCb5oxuGd00fTRth9Li')
+const stripe = require('stripe')(process.env.STRIPE_LIVE)
 
 app.use('/uploads', express.static('uploads'))
 
@@ -34,9 +26,18 @@ app.post('/order', async (req, res) => {
   const comments = req.body.comments
   const file = req.body.file
 
-  console.log('here')
-  let thisOrder = { name: name, email: email, address: address, address2: address2, choice: choice, comments: comments, file: file }
- 
+  
+  let newCard = models.Card.build({
+    name: name,
+    email: email,
+    address: address,
+    address2: address2,
+    choice: choice,
+    comments: comments,
+    file: file,
+  }) 
+
+  newCard.save()
 
   const session = await stripe.checkout.sessions.create({
     payment_method_types: ['card'],
@@ -53,19 +54,58 @@ app.post('/order', async (req, res) => {
       },
     ],
     mode: 'payment',
-    success_url: 'http://localhost:8000',
-    cancel_url: 'http://localhost:8000',
+    success_url: 'https://imperfectprint.com/thankyou',
+    cancel_url: 'https://imperfectprint.com/oops',
   });
 
-
-  connection.query('INSERT INTO orders SET ?', thisOrder, function (error, results, fields) {
-    if(error) throw error
-  })
 
   res.json({ id: session.id });
 
 
 })
+
+app.post('/login', (req, res) => {
+  let username = req.body.username
+  let password = req.body.password
+
+  models.Boss.findOne({
+    where: {
+      userName: username
+    }
+  })
+  .then((user) => {
+    bcrypt.compare(password, user.password, function (error, result) {
+      if(result) {
+        var token = jwt.sign({ username: username }, 'PRINTERBROKE')
+        res.json({ success: true, token: token})
+      } else {
+        res.json({message: "Wrong Something"})
+      }
+    })
+  })
+
+
+})
+
+// app.post('/register', (req, res) => {
+//   let username = req.body.username
+//   let password = req.body.password
+
+//   bcrypt.genSalt(10, function (error, salt) {
+//     bcrypt.hash(password, salt, function (error, hash) {
+//         if (!error) {
+//             let newUser = models.Boss.build({
+//                 username: username,
+//                 password: hash
+//             })
+//             newUser.save().then(saved => {
+//                 res.json({ success: true })
+//             })
+//         }
+//     })
+// })
+  
+// })
 
 app.post('/upload', (req, res) => {
   new formidable.IncomingForm().parse(req)
@@ -74,7 +114,7 @@ app.post('/upload', (req, res) => {
       file.path = __dirname + '/uploads/' + uniqueFilename
     })
     .on('file', (name, file) => {
-      let url = `http://localhost:8000/uploads/${uniqueFilename}`
+      let url = `https://api.imperfectprint.com/uploads/${uniqueFilename}`
 
       res.json({ file: url })
     })

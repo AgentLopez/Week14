@@ -1,22 +1,18 @@
 import Header1 from '../layout/header/header1';
 import Footer1 from '../layout/footer/footer1';
 
-// Elements
-import ClientLogo from '../elements/client-logo/client-logo-1';
 
 // Images
 import Banner1 from '../../images/banner/banner1.jpg';
-import Icon1 from '../../images/icon/contact/icon1.png';
 import Icon2 from '../../images/icon/contact/icon2.png';
 import Icon3 from '../../images/icon/contact/icon3.png';
 
 
 import React, { Component } from 'react';
-import { Link } from 'react-router-dom';
 import { loadStripe } from '@stripe/stripe-js'
 import axios from 'axios'
 
-const stripePromise = loadStripe('pk_test_51IlcevKnypfgt1FwzZyrKZyjwTiAft0838JDEpxQIe7A1J1Q1uXKaidf55mLMCbBIMZoPkcoQPRdTvHj73Ytdg2r00bhxV7jJB')
+const stripePromise = loadStripe('pk_live_51IlcevKnypfgt1FwJjLxYwp3qFYEG1uo25ptzBXMupRAEFP2nIpcBWTiiON1RjSO37YAERJ8yaBTNUD1E3mcUQuz00hfhGil48')
 
 // Layout
 
@@ -50,7 +46,7 @@ class GetInTouch extends Component {
 			e.target.files[0],
 			e.target.files[0].name
 		)
-		axios.post('http://localhost:8000/upload', formData)
+		axios.post('https://api.imperfectprint.com/upload', formData)
 			.then(file => {
 				this.setState({
 					...this.state,
@@ -62,38 +58,50 @@ class GetInTouch extends Component {
 
 
 	handleClick = async (e) => {
-		// Get Stripe.js instance
-		const stripe = await stripePromise;
+		let checkname = this.state.name
+		let checkemail = this.state.email
+		let checkaddress = this.state.address
+		let checkaddress2 = this.state.address2
+		let checkchoice = this.state.choice
 
-		// Call your backend to create the Checkout Session
-		const response = await fetch('http://localhost:8000/order', {
-			method: 'POST',
-			headers: {
-				'Content-Type': 'application/json'
-			},
-			body: JSON.stringify({
-				name: this.state.name,
-				email: this.state.email,
-				address: this.state.address,
-				address2: this.state.address2,
-				choice: this.state.choice,
-				comments: this.state.comments,
-				file: this.state.theFileFromServer
-			})
-		});
+		if (checkname && checkemail && checkaddress && checkaddress2 && checkchoice) {
+			// Get Stripe.js instance
+			const stripe = await stripePromise;
 
-		const session = await response.json();
+			// Call your backend to create the Checkout Session
+			const response = await fetch('https://api.imperfectprint.com/order', {
+				method: 'POST',
+				headers: {
+					'Content-Type': 'application/json'
+				},
+				body: JSON.stringify({
+					name: this.state.name,
+					email: this.state.email,
+					address: this.state.address,
+					address2: this.state.address2,
+					choice: this.state.choice,
+					comments: this.state.comments,
+					file: this.state.theFileFromServer
+				})
+			});
 
-		// When the customer clicks on the button, redirect them to Checkout.
-		const result = await stripe.redirectToCheckout({
-			sessionId: session.id,
-		});
+			const session = await response.json();
 
-		if (result.error) {
-			// If `redirectToCheckout` fails due to a browser or network
-			// error, display the localized error message to your customer
-			// using `result.error.message`.
+			// When the customer clicks on the button, redirect them to Checkout.
+			const result = await stripe.redirectToCheckout({
+				sessionId: session.id,
+			});
+
+			if (result.error) {
+				// If `redirectToCheckout` fails due to a browser or network
+				// error, display the localized error message to your customer
+				// using `result.error.message`.
+			}
+
+		} else {
+			alert('Some Required Fields Left Blank')
 		}
+
 	};
 
 
@@ -105,10 +113,10 @@ class GetInTouch extends Component {
 				{/* <!-- Content --> */}
 				<div className="page-content bg-white">
 
-					<div className="page-banner ovbl-dark parallax" style={{ backgroundImage: "url(" + Banner1 + ")" }}>
+					<div className="page-banner ovbl-middle parallax" style={{ backgroundImage: "url(" + Banner1 + ")" }}>
 						<div className="container">
 							<div className="page-banner-entry">
-								<h1 className="text-white">Start Here</h1>
+								<h1 className="text-white">Order Form</h1>
 								<div className="breadcrumb-row">
 									<ul className="list-inline">
 
@@ -175,38 +183,38 @@ class GetInTouch extends Component {
 																</div>
 																<div className="col-md-12 col-lg-4">
 																	<div className="custom-control custom-checkbox m-b10">
-																		<input type="radio" name="choice" value = "one" onChange={this.handleChange} className="custom-control-input" id="customControlAutosizing1"/>
-																		<label className="custom-control-label" htmlFor="customControlAutosizing1"><img src = "http://localhost:8000/uploads/2de2b5c8-c269-46a7-99c6-f2109100ecd7.png" /></label>
+																		<input type="radio" name="choice" value="four" onChange={this.handleChange} className="custom-control-input" id="customControlAutosizing1" />
+																		<label className="custom-control-label" htmlFor="customControlAutosizing1"><img src="https://api.imperfectprint.com/uploads/card4.png" alt ="Card four"/></label>
 																	</div>
 																</div>
 																<div className="col-md-12 col-lg-4">
 																	<div className="custom-control custom-checkbox m-b10">
-																		<input type="radio" name="choice" value = "two" onChange={this.handleChange} className="custom-control-input" id="customControlAutosizing2" />
-																		<label className="custom-control-label" htmlFor="customControlAutosizing2"><img src ="http://localhost:8000/uploads/8171b161-8ee8-4a33-966e-c6f2341398b8.jpg" /></label>
+																		<input type="radio" name="choice" value="one" onChange={this.handleChange} className="custom-control-input" id="customControlAutosizing2" />
+																		<label className="custom-control-label" htmlFor="customControlAutosizing2"><img src="https://api.imperfectprint.com/uploads/card1.png" alt ="Card one"/></label>
 																	</div>
 																</div>
 																<div className="col-md-12 col-lg-4">
 																	<div className="custom-control custom-checkbox m-b10">
-																		<input type="radio" name="choice" value = "three" onChange={this.handleChange} className="custom-control-input" id="customControlAutosizing3" />
-																		<label className="custom-control-label" htmlFor="customControlAutosizing3">Material Science</label>
+																		<input type="radio" name="choice" value="five" onChange={this.handleChange} className="custom-control-input" id="customControlAutosizing3" />
+																		<label className="custom-control-label" htmlFor="customControlAutosizing3"><img src="https://api.imperfectprint.com/uploads/card5.png" alt ="Card five"/></label>
 																	</div>
 																</div>
 																<div className="col-md-12 col-lg-4">
 																	<div className="custom-control custom-checkbox m-b10">
-																		<input type="radio" name="choice" value = "four" onChange={this.handleChange} className="custom-control-input" id="customControlAutosizing4" />
-																		<label className="custom-control-label" htmlFor="customControlAutosizing4">Mechanical Engineering</label>
+																		<input type="radio" name="choice" value="two" onChange={this.handleChange} className="custom-control-input" id="customControlAutosizing4" />
+																		<label className="custom-control-label" htmlFor="customControlAutosizing4"><img src="https://api.imperfectprint.com/uploads/card2.png" alt ="Card two"/></label>
 																	</div>
 																</div>
 																<div className="col-md-12 col-lg-4">
 																	<div className="custom-control custom-checkbox m-b10">
-																		<input type="radio" name="choice" value = "five" onChange={this.handleChange} className="custom-control-input" id="customControlAutosizing5" />
-																		<label className="custom-control-label" htmlFor="customControlAutosizing5">Oil and Gas</label>
+																		<input type="radio" name="choice" value="three" onChange={this.handleChange} className="custom-control-input" id="customControlAutosizing5" />
+																		<label className="custom-control-label" htmlFor="customControlAutosizing5"><img src="https://api.imperfectprint.com/uploads/card3.png" alt ="Card three"/></label>
 																	</div>
 																</div>
 																<div className="col-md-12 col-lg-4">
 																	<div className="custom-control custom-checkbox m-b10">
-																		<input type="radio" name="choice" value = "six" onChange={this.handleChange} className="custom-control-input" id="customControlAutosizing6" />
-																		<label className="custom-control-label" htmlFor="customControlAutosizing6">Power and Energy</label>
+																		<input type="radio" name="choice" value="six" onChange={this.handleChange} className="custom-control-input" id="customControlAutosizing6" />
+																		<label className="custom-control-label" htmlFor="customControlAutosizing6"><img src="https://api.imperfectprint.com/uploads/card6.png" alt ="Card six"/></label>
 																	</div>
 																</div>
 															</div>
@@ -231,7 +239,7 @@ class GetInTouch extends Component {
 															<div className="form-group">
 																<div className="input-group">
 
-																	<textarea name="Comments" placeholder="Comments*" onChange={this.handleChange} className="form-control"></textarea>
+																	<textarea name="Comments" placeholder="Comments" onChange={this.handleChange} className="form-control"></textarea>
 																</div>
 															</div>
 														</div>

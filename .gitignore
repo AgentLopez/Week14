@@ -4,3 +4,4 @@
 /print/src/fonts
 /print/markup/elements
 /server/node_modules
+.env

@@ -1,4 +1,4 @@
-import React, { Component,useState,handleShow } from 'react';
+import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import Sticky from 'react-stickynode';
 
@@ -8,55 +8,7 @@ import Logo from "../../../images/logo.png"
 
 class Header1 extends Component{
 	
-	componentDidMount() {
-		
-		// Cart Dropdown 
-		var cartBtn = document.getElementById("cartBtn")
-        var cartDropdown = document.querySelector(".cart-dropdown")
-		
 
-		
-		// Search Form Popup
-		var searchBtn = document.getElementById("quik-search-btn")
-        var searchForm = document.querySelector(".nav-search-bar")
-        var closeBtn = document.getElementById("search-remove")
-
-
-        closeBtn.addEventListener('click',function(){
-            searchForm.classList.remove("show")
-        })
-
-        // Mobile Menu sidebar function
-        var btn = document.querySelector('.menuicon');
-        var nav = document.querySelector('.menu-links');
-       
-        function toggleFunc() {
-            btn.classList.toggle("open");
-            nav.classList.toggle("show");
-        }
-
-        btn.addEventListener('click', toggleFunc);
-
-        // Mobile Submenu open close function
-        var navMenu = [].slice.call(document.querySelectorAll('.menu-links > ul > li'));
-        for (var y = 0; y < navMenu.length; y++) {
-            navMenu[y].addEventListener('click', function () { menuClick(this) });
-        }
-
-        function menuClick(current) {
-            const active = current.classList.contains("open")
-            navMenu.forEach(el => el.classList.remove('open'));
-            
-            if(active){
-                current.classList.remove('open') 
-                console.log("active")
-            } else{
-                current.classList.add('open');
-                console.log("close")
-            }
-        }
-		
-    }
 	
 	render(){
 		return(

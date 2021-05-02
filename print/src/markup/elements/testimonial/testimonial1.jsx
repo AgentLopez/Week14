@@ -1,11 +1,6 @@
 import React, { Component } from 'react';
 import Slider from "react-slick"; 
 
-// Images
-import TestPic1 from "../../../images/testimonials/pic1.jpg"
-import TestPic2 from "../../../images/testimonials/pic2.jpg"
-import TestPic3 from "../../../images/testimonials/pic3.jpg"
-import TestPic4 from "../../../images/testimonials/pic4.jpg"
 
 class Testimonial1 extends Component{
 	

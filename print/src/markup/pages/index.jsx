@@ -1,26 +1,17 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
-import { Swiper, SwiperSlide } from 'swiper/react';
 
 // Layout
 import Header1 from '../layout/header/header1';
 import Footer1 from '../layout/footer/footer1';
 
 // Elements
-import Slider from '../elements/slider/slider1';
-import ServiceSlider1 from '../elements/services/service-slider-1';
-import ServiceSlider2 from '../elements/services/service-slider-2';
 import About from '../elements/about/about1';
 import NumberBox from '../elements/number-box/number-box';
-import Testimonial from '../elements/testimonial/testimonial1';
 
 // Images
 import ServicesPic1 from "../../images/our-services/pic1.jpg"
 import ServicesPic2 from "../../images/our-services/pic2.jpg"
-import BlogGridPic1 from "../../images/blog/grid/pic1.jpg"
-import BlogGridPic2 from "../../images/blog/grid/pic2.jpg"
-import BlogGridPic3 from "../../images/blog/grid/pic3.jpg"
-import BlogGridPic4 from "../../images/blog/grid/pic4.jpg"
 
 
 class Index extends Component {
