@@ -1,26 +1,32 @@
 import { Component } from 'react'
+import { connect } from 'react-redux'
 
 
-// export default function() {
+export default function(LoadThisComp) {
     
-//     class Auth extends Component {
+    class Auth extends Component {
        
         
-//         const token = localStorage.getItem('jsonwebtoken')
+        constructor(props) {
+            super(props)
 
-//         fetch('http://api.x2y1.org/profile', {
-//             method: 'POST',
-//             headers: {
-//                 'email': user.email,
-//                 'authorization': `Bearer ${token}`
-//             }
-//         }).then(response => response.json())
-//             .then(response => {
-//                 if (response) {
-//                     props.history.push('/')
-//                 }
-//             })
+            if (!this.props.loggedin) {
+                this.props.history.push('/login')
+            }
+        }
 
-            
-//     }
-// }
+            render () {
+                return <LoadThisComp {...this.props} />
+            }
+    }
+
+    const mapStateToProps = (state) => {
+        return {
+            loggedin: state.loggedin
+        }
+    }
+
+
+return connect(mapStateToProps)(Auth)
+
+}

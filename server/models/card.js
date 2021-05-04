@@ -23,7 +23,8 @@ module.exports = (sequelize, DataTypes) => {
     file: DataTypes.STRING,
     shipped: DataTypes.BOOLEAN,
     tracknum: DataTypes.STRING,
-    shipdate: DataTypes.STRING
+    shipdate: DataTypes.STRING,
+    paid: DataTypes.BOOLEAN
   }, {
     sequelize,
     modelName: 'Card',

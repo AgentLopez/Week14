@@ -6,9 +6,29 @@ const formidable = require('formidable')
 const { v4: uuidv4 } = require('uuid')
 const models = require('./models')
 const bcrypt = require('bcryptjs')
-
-
+var nodemailer = require('nodemailer')
+const authen = require('./auth')
+const { sequelize } = require('./models')
 require('dotenv').config()
+
+async function main(message) {
+
+var transporter = nodemailer.createTransport({
+  host: "smtp.dreamhost.com",
+  port: 587,
+  secure: false,
+  auth: {
+    user: process.env.EMAILUSER,
+    pass: process.env.EMAILPASS
+  }
+})
+
+let info = await transporter.sendMail(message)
+
+}
+
+
+
 
 const stripe = require('stripe')(process.env.STRIPE_LIVE)
 
@@ -39,6 +59,26 @@ app.post('/order', async (req, res) => {
 
   newCard.save()
 
+  if (choice === 'four' || choice === 'one' || choice === 'five') {
+    models.Supply.update({
+      hor: sequelize.literal('hor - 1')
+    }, {
+      where: {
+        id: 1
+      }
+    })
+  } else {
+    models.Supply.update({
+      ver: sequelize.literal('ver - 1')
+    }, {
+      where: {
+        id: 1
+      }
+    })
+  }
+
+
+
   const session = await stripe.checkout.sessions.create({
     payment_method_types: ['card'],
     line_items: [
@@ -62,6 +102,97 @@ app.post('/order', async (req, res) => {
   res.json({ id: session.id });
 
 
+})
+
+
+
+app.get('/admin', authen, (req, res) => {
+  models.Card.findAll({
+    order: [
+      ['id', 'DESC']
+    ]
+  })
+  .then(orders => {
+    res.json(orders)
+  })
+})
+
+
+app.get('/shipped/:id', authen, (req, res) => {
+  let id = req.params.id
+  let email = id.split(' ')[1]
+  
+
+  models.Card.update({
+    shipped: true,
+    shipdate: Date.now()
+  }, {
+    where: {
+      id: id
+    }
+  })
+  .then((response) => {
+    let message = {
+      from: '"Imperfect Print" <order@imperfectprint.com>',
+      to: `${email}`,
+      subject: "Your Order Is Being Shipped",
+      text: "Thank you for your order, it's printed and in an envelope and will be at the post office in the next 24 hours.",
+      
+    }
+    main(message).catch(console.error)
+    res.json({success: true})
+  })
+})
+
+
+
+app.get('/paid/:id', authen, (req, res) => {
+  let id = req.params.id
+  console.log(id)
+  //add authentication middleware
+  models.Card.update({
+    paid: true,
+  }, {
+    where: {
+      id: id
+    }
+  })
+  .then((response) => {
+    res.json({success: true})
+  })
+})
+
+
+
+app.get('/stock', (req, res) => {
+models.Supply.findOne({
+  where: {
+    id: 1
+  }
+})
+.then((supply) => {
+  res.json(supply)
+})
+})
+
+
+app.post('/stock', authen, (req, res) => {
+  let hor = req.body.hor
+  let ver = req.body.ver
+  let blank = req.body.blank
+  let key = req.body.key
+
+  models.Supply.update({
+    hor: hor,
+    ver: ver,
+  }, {
+    where: {
+      id: 1
+    }
+  })
+  .then((saved) => {
+    res.json({success: true, message: saved})
+  })
 })
 
 app.post('/login', (req, res) => {

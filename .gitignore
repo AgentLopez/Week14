@@ -1,3 +1,4 @@
+/server/config
 /print/node_modules
 /print/src/vendors
 /print/src/images
@@ -5,4 +6,4 @@
 /print/markup/elements
 /server/node_modules
 /server/.env
-/server/config/config.json
+/print/build

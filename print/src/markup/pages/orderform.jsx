@@ -35,15 +35,14 @@ class OrderForm extends Component {
 	}
 
 	componentDidMount() {
-		fetch('http://api.imperfectprint.com/stock')
+		fetch('https://api.imperfectprint.com/stock')
 			.then(response => response.json())
 			.then((stock) => {
-				let supply = {
-					ver: stock.ver,
-					hor: stock.hor
-				}
-
-				this.props.updateStock(supply)
+				this.setState({
+					...this.state,
+					hor: stock.hor,
+					ver: stock.ver
+				})
 			})
 	}
 
@@ -54,7 +53,7 @@ class OrderForm extends Component {
 	}
 
 	sendFile = (e) => {
-const formData = new FormData()
+		const formData = new FormData()
 		formData.append(
 			"myFile",
 			e.target.files[0],
@@ -78,7 +77,7 @@ const formData = new FormData()
 			spinner: true
 		})
 
-		
+
 	}
 
 
@@ -95,7 +94,7 @@ const formData = new FormData()
 			const stripe = await stripePromise;
 
 			// Call your backend to create the Checkout Session
-			const response = await fetch('http://api.imperfectprint.com/order', {
+			const response = await fetch('https://api.imperfectprint.com/order', {
 				method: 'POST',
 				headers: {
 					'Content-Type': 'application/json'
@@ -133,168 +132,176 @@ const formData = new FormData()
 
 	render() {
 		return (
-			<LoadingOverlay active={this.state.spinner} spinner text = 'Uploading Your Image'>
-			<>
-				<Header1 />
+			<LoadingOverlay active={this.state.spinner} spinner text='Uploading Your Image'>
+				<>
+					<Header1 />
 
-				{/* <!-- Content --> */}
-				<div className="page-content bg-white">
+					{/* <!-- Content --> */}
+					<div className="page-content bg-white">
 
-					<div className="page-banner ovbl-middle parallax" style={{ backgroundImage: "url(" + Banner1 + ")" }}>
-						<div className="container">
-							<div className="page-banner-entry">
-								<h1 className="text-white">Order Form</h1>
-								<div className="breadcrumb-row">
-									<ul className="list-inline">
+						<div className="page-banner ovbl-middle parallax" style={{ backgroundImage: "url(" + Banner1 + ")" }}>
+							<div className="container">
+								<div className="page-banner-entry">
+									<h1 className="text-white">Order Form</h1>
+									<div className="breadcrumb-row">
+										<ul className="list-inline">
 
 
-									</ul>
+										</ul>
+									</div>
 								</div>
 							</div>
 						</div>
-					</div>
 
-					<div className="content-block" id="content-area">
+						<div className="content-block" id="content-area">
 
-						<div className="section-area bg-gray section-sp2">
-							<div className="container">
-								<div className="row">
-									<div className="col-lg-8 col-md-7">
-										<div className="heading-bx">
-											<h6 className="title-ext m-b0">Covid Vaccination Card</h6>
-											<h3 className="title-head m-b0">Order Form</h3>
-											<div className="ttr-separator sepimg"></div>
-											<p className="head-px2">Fill out the imformation and then you'll be directed to a payment form. Only one Vaccination card can be processed at a time.</p>
-										</div>
-										<div className="row m-b30">
-											<div className="col-md-12">
-												<div className=" form-area-box get-in-touch" >
-													<div ></div>
-													<div className="row placeani">
-														<div className="col-lg-6">
-															<div className="form-group">
-																<div className="input-group">
+							<div className="section-area bg-gray section-sp2">
+								<div className="container">
+									<div className="row">
+										<div className="col-lg-8 col-md-7">
+											<div className="heading-bx">
+												<h6 className="title-ext m-b0">Covid Vaccination Card</h6>
+												<h3 className="title-head m-b0">Order Form</h3>
+												<div className="ttr-separator sepimg"></div>
+												<p className="head-px2">Fill out the imformation and then you'll be directed to a payment form. Only one Vaccination card can be processed at a time.</p>
+											</div>
+											<div className="row m-b30">
+												<div className="col-md-12">
+													<div className=" form-area-box get-in-touch" >
+														<div ></div>
+														<div className="row placeani">
+															<div className="col-lg-6">
+																<div className="form-group">
+																	<div className="input-group">
 
-																	<input name="name" placeholder="Name*" type="text" onChange={this.handleChange} className="form-control" required />
-																</div>
-															</div>
-														</div>
-														<div className="col-lg-6">
-															<div className="form-group">
-																<div className="input-group">
-
-																	<input name="email" placeholder="Email*" type="email" onChange={this.handleChange} className="form-control" required />
-																</div>
-															</div>
-														</div>
-														<div className="col-lg-6">
-															<div className="form-group">
-																<div className="input-group">
-
-																	<input name="address" placeholder="Address*" type="text" onChange={this.handleChange} className="form-control" required />
-																</div>
-															</div>
-														</div>
-														<div className="col-lg-6">
-															<div className="form-group">
-																<div className="input-group">
-
-																	<input name="address2" placeholder="City, State, ZIP Code*" type="text" onChange={this.handleChange} className="form-control" required />
-																</div>
-															</div>
-														</div>
-														<div className="col-lg-12">
-															<div className="row m-b20">
-																<div className="col-md-12 col-lg-12">
-																	<h5>Front Graphic Choice (Must Choose One)</h5>
-																</div>
-
-																<div className="col-md-12 col-lg-4">
-																	{this.props.hor ?
-																		<div className="custom-control custom-checkbox m-b10">
-																			<input type="radio" name="choice" value="four" onChange={this.handleChange} className="custom-control-input" id="customControlAutosizing1" />
-																			<label className="custom-control-label" htmlFor="customControlAutosizing1"><img src="https://back.imperfectprint.com/uploads/card4.png" alt="Card four" /></label>
-																		</div>
-																		: <p>Horizonal Sold Out</p>}
-																</div>
-
-
-																<div className="col-md-12 col-lg-4">
-																	{this.props.hor ?
-																		<div className="custom-control custom-checkbox m-b10">
-																			<input type="radio" name="choice" value="one" onChange={this.handleChange} className="custom-control-input" id="customControlAutosizing2" />
-																			<label className="custom-control-label" htmlFor="customControlAutosizing2"><img src="https://back.imperfectprint.com/uploads/card1.png" alt="Card one" /></label>
-																		</div>
-																		: <p>Horizonal Sold Out</p>}
-																</div>
-
-
-																<div className="col-md-12 col-lg-4">
-																	{this.props.hor ?
-																		<div className="custom-control custom-checkbox m-b10">
-																			<input type="radio" name="choice" value="five" onChange={this.handleChange} className="custom-control-input" id="customControlAutosizing3" />
-																			<label className="custom-control-label" htmlFor="customControlAutosizing3"><img src="https://back.imperfectprint.com/uploads/card5.png" alt="Card five" /></label>
-																		</div>
-																		: <p>Horizonal Sold Out</p>}
-																</div>
-
-																<div className="col-md-12 col-lg-4">
-																	<div className="custom-control custom-checkbox m-b10">
-																		<input type="radio" name="choice" value="two" onChange={this.handleChange} className="custom-control-input" id="customControlAutosizing4" />
-																		<label className="custom-control-label" htmlFor="customControlAutosizing4"><img src="https://back.imperfectprint.com/uploads/card2.png" alt="Card two" /></label>
-																	</div>
-																</div>
-																<div className="col-md-12 col-lg-4">
-																	<div className="custom-control custom-checkbox m-b10">
-																		<input type="radio" name="choice" value="three" onChange={this.handleChange} className="custom-control-input" id="customControlAutosizing5" />
-																		<label className="custom-control-label" htmlFor="customControlAutosizing5"><img src="https://back.imperfectprint.com/uploads/card3.png" alt="Card three" /></label>
-																	</div>
-																</div>
-																<div className="col-md-12 col-lg-4">
-																	<div className="custom-control custom-checkbox m-b10">
-																		<input type="radio" name="choice" value="six" onChange={this.handleChange} className="custom-control-input" id="customControlAutosizing6" />
-																		<label className="custom-control-label" htmlFor="customControlAutosizing6"><img src="https://back.imperfectprint.com/uploads/card6.png" alt="Card six" /></label>
+																		<input name="name" placeholder="Name*" type="text" onChange={this.handleChange} className="form-control" required />
 																	</div>
 																</div>
 															</div>
-														</div>
-														<div className="col-lg-6">
-															<div className="form-group">
-																<div className="input-group">
-																	<label><h5>Upload Vaccine Image: (Optional)</h5></label>
+															<div className="col-lg-6">
+																<div className="form-group">
+																	<div className="input-group">
 
+																		<input name="email" placeholder="Email*" type="email" onChange={this.handleChange} className="form-control" required />
+																	</div>
 																</div>
 															</div>
-														</div>
-														<div className="col-lg-6">
-															<div className="form-group">
-																<div className="input-group">
-																	<input type="file" onChange={this.imageChoice} />
-																	<img src={this.state.theFileFromServer} />
-																</div>
-															</div>
-														</div>
-														<div className="col-lg-12">
-															<div className="form-group">
-																<div className="input-group">
+															<div className="col-lg-6">
+																<div className="form-group">
+																	<div className="input-group">
 
-																	<textarea name="comments" placeholder="Comments" onChange={this.handleChange} className="form-control"></textarea>
+																		<input name="address" placeholder="Address*" type="text" onChange={this.handleChange} className="form-control" required />
+																	</div>
 																</div>
 															</div>
-														</div>
-														<div className="col-lg-12">
-															<button className="btn" role="link" onClick={this.handleClick}>
-																Proceed To Checkout
+															<div className="col-lg-6">
+																<div className="form-group">
+																	<div className="input-group">
+
+																		<input name="address2" placeholder="City, State, ZIP Code*" type="text" onChange={this.handleChange} className="form-control" required />
+																	</div>
+																</div>
+															</div>
+															<div className="col-lg-12">
+																<div className="row m-b20">
+																	<div className="col-md-12 col-lg-12">
+																		<h5>Front Graphic Choice (Must Choose One)</h5>
+																	</div>
+
+																	<div className="col-md-12 col-lg-4">
+																		{this.state.hor ?
+																			<div className="custom-control custom-checkbox m-b10">
+																				<input type="radio" name="choice" value="four" onChange={this.handleChange} className="custom-control-input" id="customControlAutosizing1" />
+																				<label className="custom-control-label" htmlFor="customControlAutosizing1"><img src="https://api.imperfectprint.com/uploads/card4.png" alt="Card four" /></label>
+																			</div>
+																			: <p>Horizonal Sold Out</p>}
+																	</div>
+
+
+																	<div className="col-md-12 col-lg-4">
+																		{this.state.hor ?
+																			<div className="custom-control custom-checkbox m-b10">
+																				<input type="radio" name="choice" value="one" onChange={this.handleChange} className="custom-control-input" id="customControlAutosizing2" />
+																				<label className="custom-control-label" htmlFor="customControlAutosizing2"><img src="https://api.imperfectprint.com/uploads/card1.png" alt="Card one" /></label>
+																			</div>
+																			: <p>Horizonal Sold Out</p>}
+																	</div>
+
+
+																	<div className="col-md-12 col-lg-4">
+																		{this.state.hor ?
+																			<div className="custom-control custom-checkbox m-b10">
+																				<input type="radio" name="choice" value="five" onChange={this.handleChange} className="custom-control-input" id="customControlAutosizing3" />
+																				<label className="custom-control-label" htmlFor="customControlAutosizing3"><img src="https://api.imperfectprint.com/uploads/card5.png" alt="Card five" /></label>
+																			</div>
+																			: <p>Horizonal Sold Out</p>}
+																	</div>
+
+																	<div className="col-md-12 col-lg-4">
+																		{this.state.ver ?
+																			<div className="custom-control custom-checkbox m-b10">
+																				<input type="radio" name="choice" value="two" onChange={this.handleChange} className="custom-control-input" id="customControlAutosizing4" />
+																				<label className="custom-control-label" htmlFor="customControlAutosizing4"><img src="https://api.imperfectprint.com/uploads/card2.png" alt="Card two" /></label>
+																			</div>
+																			: <p>Vertical Sold Out</p>}
+																	</div>
+																	<div className="col-md-12 col-lg-4">
+																		{this.state.ver ?
+																			<div className="custom-control custom-checkbox m-b10">
+																				<input type="radio" name="choice" value="three" onChange={this.handleChange} className="custom-control-input" id="customControlAutosizing5" />
+																				<label className="custom-control-label" htmlFor="customControlAutosizing5"><img src="https://api.imperfectprint.com/uploads/card3.png" alt="Card three" /></label>
+																			</div>
+																			: <p>Vertical Sold Out</p>}
+																	</div>
+																	<div className="col-md-12 col-lg-4">
+																		{this.state.ver ?
+																			<div className="custom-control custom-checkbox m-b10">
+																				<input type="radio" name="choice" value="six" onChange={this.handleChange} className="custom-control-input" id="customControlAutosizing6" />
+																				<label className="custom-control-label" htmlFor="customControlAutosizing6"><img src="https://api.imperfectprint.com/uploads/card6.png" alt="Card six" /></label>
+																			</div>
+																			: <p>Vertical Sold Out</p>}
+																	</div>
+																</div>
+															</div>
+															<div className="col-lg-6">
+																<div className="form-group">
+																	<div className="input-group">
+																		<label><h5>Upload Vaccine Image: (Optional)</h5></label>
+
+																	</div>
+																</div>
+															</div>
+															<div className="col-lg-6">
+																<div className="form-group">
+																	<div className="input-group">
+																		<input type="file" onChange={this.imageChoice} />
+																		<img src={this.state.theFileFromServer} />
+																	</div>
+																</div>
+															</div>
+															<div className="col-lg-12">
+																<div className="form-group">
+																	<div className="input-group">
+
+																		<textarea name="comments" placeholder="Comments" onChange={this.handleChange} className="form-control"></textarea>
+																	</div>
+																</div>
+															</div>
+															<div className="col-lg-12">
+																{!this.state.ver && !this.state.hor ? <h5>Sold Out</h5> :
+																	<button className="btn" role="link" onClick={this.handleClick}>
+																		Proceed To Checkout
    															 </button>
+																}
+															</div>
 														</div>
 													</div>
 												</div>
 											</div>
 										</div>
-									</div>
-									<div className="col-lg-4 col-md-5">
-										<aside className="sticky-top left-border-1">
-											{/* <div className="widget">
+										<div className="col-lg-4 col-md-5">
+											<aside className="sticky-top left-border-1">
+												{/* <div className="widget">
 												<h6 className="widget-title">Our Inner Pages</h6>
 												<ul className="service-list style-2">
 													<li><Link to="about-1">About Us <i className="las la-question-circle"></i></Link></li>
@@ -310,39 +317,39 @@ const formData = new FormData()
 												</ul>
 												<Link to="get-in-touch" className="btn btn-block m-t20">Get In Touch</Link>
 											</div> */}
-											<div className="widget">
-												<h6 className="widget-title">Contact Us</h6>
-												<ul className="contact-infolist">
+												<div className="widget">
+													<h6 className="widget-title">Contact Us</h6>
+													<ul className="contact-infolist">
 
-													<li>
-														<img src={Icon2} alt="" className="mCS_img_loaded" />
-														<h6 className="contact-title">Email Address</h6>
-														<a href="mailto:order@imperfectprint.com">order@imperfectprint.com</a><br />
+														<li>
+															<img src={Icon2} alt="" className="mCS_img_loaded" />
+															<h6 className="contact-title">Email Address</h6>
+															<a href="mailto:order@imperfectprint.com">order@imperfectprint.com</a><br />
 
-													</li>
-													<li>
-														<img src={Icon3} alt="" className="mCS_img_loaded" />
-														<h6 className="contact-title">Address</h6>
-														<p>PO Box 11314<br />Bakersfield, CA 93389</p>
-													</li>
-												</ul>
-											</div>
-										</aside>
+														</li>
+														<li>
+															<img src={Icon3} alt="" className="mCS_img_loaded" />
+															<h6 className="contact-title">Address</h6>
+															<p>PO Box 11314<br />Bakersfield, CA 93389</p>
+														</li>
+													</ul>
+												</div>
+											</aside>
+										</div>
 									</div>
+
 								</div>
-
 							</div>
+
+
+
 						</div>
-
-
 
 					</div>
 
-				</div>
+					<Footer1 />
 
-				<Footer1 />
-
-			</></LoadingOverlay>
+				</></LoadingOverlay>
 		);
 	}
 }

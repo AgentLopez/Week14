@@ -3,6 +3,9 @@
 
 import React, { Component } from 'react';
 
+import { connect } from 'react-redux'
+import reducer from '../../reducer';
+
 
 
 // Layout
@@ -30,7 +33,7 @@ class Login extends Component {
 		let username = this.state.username
 		let password = this.state.password
 		
-		fetch('http://localhost:8000/login', {
+		fetch('https://api.imperfectprint.com/login', {
 			method: 'POST',
 			headers: {
 				'Content-Type': 'application/json'
@@ -45,6 +48,7 @@ class Login extends Component {
 				if (result.success) {
 					const token = result.token
 					localStorage.setItem("jsonwebtoken", token)
+					this.props.onLogin()
 					this.props.history.push('/admin')
 				}
 			})
@@ -131,4 +135,10 @@ class Login extends Component {
 	}
 }
 
-export default Login;
+const mapDispatchToProps = (dispatch) => {
+	return {
+		onLogin: () => dispatch({type: 'LOGIN'})
+	}
+}
+
+export default connect(null, mapDispatchToProps)(Login);

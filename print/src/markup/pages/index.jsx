@@ -24,16 +24,9 @@ class Index extends Component {
 				
 				{/* <!-- Content --> */}
 				<div className="page-content bg-white">
-					
-					{/* <Slider /> */}
-					
-					{/* <!-- Main Slider --> */}
-
-
 
 					<div className="content-block" id="content-area">
-						
-						
+								
 						<div className="section-area section-sp3 bg-white">
 							<div className="container">
 								<About />
@@ -47,7 +40,6 @@ class Index extends Component {
 						</div>
 						
 			
-			
 						<div className="section-area bg-white section-sp2">
 							<div className="container">
 								<div className="row">
@@ -57,7 +49,7 @@ class Index extends Component {
 											<h2 className="title-head m-b0">It's PVC Plastic</h2>
 											<div className="ttr-separator sepimg"></div>
 											<p className="head-px2">These cards are thermal printed making them durable and safe from water and everyday oops, letting you keep your paper record at home where it's safe.</p>
-											<Link to="get-started" className="btn">Get Started</Link>
+											<Link to="faq" className="btn">F A Q</Link>
 										</div>
 									</div>
 									<div className="col-lg-4 col-md-6 col-sm-6">
