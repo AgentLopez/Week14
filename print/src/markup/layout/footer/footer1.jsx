@@ -22,9 +22,9 @@ class Footer1 extends Component{
 								<div className="col-lg-6 col-md-6 col-sm-12 text-center text-md-right">
 									<ul className="link-inline">
 										<li><Link to="/">Home</Link></li>
-									
-										<li><Link to="faq">FAQs</Link></li>
-										<li><Link to="get-started">Get Started</Link></li>
+										<li><Link to="/faq">FAQs</Link></li>
+										<li><Link to="/status">Order Status</Link></li>
+										<li><Link to="/get-started">Get Started</Link></li>
 									</ul>
 								</div>
 							</div>

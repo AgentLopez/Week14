@@ -37,6 +37,81 @@ app.use('/uploads', express.static('uploads'))
 app.use(express.json())
 app.use(cors())
 
+app.get('/status/:code', (req, res) => {
+  let code = req.params.code
+  models.Status.findOne({
+    where: {
+      code: code
+    }
+  }).then(status => {
+    console.log(status)
+    if (status) {
+      models.Card.findAll({
+        where: {
+          email: status.email
+        }
+      }) .then((orders) => {
+        res.json({orders: orders})
+      })
+
+
+
+
+    } else {
+      res.json({message: "Invalid Code"})
+    }
+  })
+
+  
+})
+
+app.get('/verify/:email', (req, res) => {
+let email = req.params.email
+
+models.Card.findAll({
+  where: {
+    email: email
+  }
+}) .then(orders => {
+
+  if (orders.length !== 0) {
+    models.Status.findOne({
+      where: {
+        email: email
+      }
+    }).then(stat => {
+      if (!stat) {
+        let code = uuidv4()
+        let newStatus = models.Status.build({
+          email: email,
+          code: code
+        })
+        newStatus.save().then((savedStatus) => {
+          let message = {
+            from: '"Imperfect Print" <order@imperfectprint.com>',
+            to: `${email}`,
+            subject: "Check Your Order Status",
+            text: `Thank you for your order, Please click this link or copy and paste into browser: http://imperfectprint.com/status/${code}`,
+            
+          }
+          main(message).catch(console.error)
+          res.json({success: true, message: "email sent"})
+
+        })
+
+
+      } else {
+        res.json({success: true, message: "Email sent, please check spam or e-mail us."})
+      }
+    })
+  }
+  else {
+    res.json({message: "No Order With That Email Found"})
+  }
+})
+
+})
+
 app.post('/order', async (req, res) => {
   const name = req.body.name
   const email = req.body.email

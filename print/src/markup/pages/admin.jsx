@@ -104,7 +104,6 @@ class Admin extends Component {
 	}
 
 	handleChange = (e) => {
-        console.log('push')
         this.setState ({
             [e.target.name]: e.target.value
         })

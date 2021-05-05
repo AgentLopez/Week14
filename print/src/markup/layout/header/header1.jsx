@@ -25,12 +25,9 @@ class Header1 extends Component{
 									<Link to="/"><img src={Logo} alt=""/></Link>
 								</div>
 								{/* <!-- Mobile Nav Button ==== --> */}
-								<button className="navbar-toggler collapsed menuicon justify-content-end" type="button" data-toggle="collapse" data-target="#menuDropdown" aria-controls="menuDropdown" aria-expanded="false" aria-label="Toggle navigation">
-									<span></span>
-									
-									<span></span>
-									<span></span>
-								</button>
+								
+									<Link to="/get-started" className="btn navbar-toggler justify-content-end  ">Get Started</Link>
+							
 								{/* <!-- Author Nav ==== --> */}
 								<div className="secondary-menu">
 									<div className="secondary-inner">
@@ -38,7 +35,7 @@ class Header1 extends Component{
 											
 											
 											<li className="d-none d-sm-block">
-												<Link to="get-started" className="btn">Get Started</Link>
+												<Link to="/get-started" className="btn">Get Started</Link>
 											</li>
 										</ul>
 									</div>
@@ -52,7 +49,7 @@ class Header1 extends Component{
 
 									
 									<div className="nav-social-link">
-									<Link to="get-started" className="btn">Get Started</Link>
+									<Link to="/get-started" className="btn">Get Started</Link>
 									</div>
 								</div>
 								{/* <!-- Navigation Menu END ==== --> */}

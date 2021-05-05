@@ -14,6 +14,8 @@ import ShopCart from './pages/admin';
 import Team from './pages/thankyou'
 import Oops from './pages/oops'
 import Login from './pages/login'
+import Status from './pages/status'
+import StatusCode from './pages/statuscode'
 
 const store = createStore(reducer, window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__())
 
@@ -32,7 +34,10 @@ class Markup extends Component{
 						<Route path='/login' component={Login} />						
 						<Route path='/admin' component={AuthPath(ShopCart)} />
 						<Route path='/oops' component={Oops} />	
-						<Route path='/thankyou' component={Team} />						
+						<Route path='/thankyou' component={Team} />
+						<Route path='/status/:code' component= {StatusCode} />	
+						<Route path='/status' component= {Status} />	
+						<Route component={Oops}	/>
 					</Switch>
 				</BrowserRouter>				
 				<BackToTop />
